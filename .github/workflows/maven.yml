@@ -53,7 +53,7 @@ jobs:
         distribution: 'temurin'
         cache: maven
     - name: Unit Test cases
-      run: mvn test
+      run: mvn test    
       
   build_project_sonar_scan: 
     runs-on: self-hosted
@@ -67,8 +67,7 @@ jobs:
         distribution: 'temurin'
         cache: maven
     - name: Build Project
-      run: mvn package
-      
+      run: mvn package      
     - uses: actions/checkout@v4
       with:
         # Disabling shallow clones is recommended for improving the relevancy of reporting
@@ -77,15 +76,14 @@ jobs:
       uses: SonarSource/sonarqube-scan-action@v7.0.0
       env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        SONAR_HOST_URL: ${{ vars.SONAR_HOST_URL}}
-        
+        SONAR_HOST_URL: ${{ vars.SONAR_HOST_URL}}        
     - name: SonarQube Quality Gate check
       id: sonarqube-quality-gate-check
       uses: sonarsource/sonarqube-quality-gate-action@master
       with:
         pollingTimeoutSec: 600
-       env:
+      env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_HOST_URL: ${{ vars.SONAR_HOST_URL }} #OPTIONAL
+          SONAR_HOST_URL: ${{ vars.SONAR_HOST_URL }} #OPTIONAL 
     
       
